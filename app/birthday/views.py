@@ -1,13 +1,24 @@
 from django.contrib.auth.models import User
-from django.urls import  reverse
+from django.shortcuts import redirect
+from django.urls import reverse
 
 from .models import BirthdayData
 from .forms import BirthdayDataForm
 from django.views.generic import TemplateView, ListView, CreateView
 
+from loguru import logger
+
 
 class IndexPage(TemplateView):
     template_name = 'birthday/index.html'
+
+
+def redirect_to_user_page(request):
+    """
+    Redirect after Login to Dashboard Page
+    """
+    logger.debug(f'Redirect from login to {request.user.id} user dashboard')
+    return redirect(f'/user/dashboard/{request.user.id}')
 
 
 class Dashboard(ListView):
