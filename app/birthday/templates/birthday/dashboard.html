@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+  <h2>Hello {{ user.username }}</h2>
+
+  {% for bday in birthdays %}
+    <h4>{{ bday.birthday_name }} - {{ bday.birthday_date }}</h4>
+  {% endfor %}
+
+{% endblock %}
