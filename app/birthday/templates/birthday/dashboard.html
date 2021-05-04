@@ -6,7 +6,15 @@
   <h2>Hello {{ user.username }}</h2>
 
   {% for bday in birthdays %}
-    <h4>{{ bday.name }} - {{ bday.date }}</h4>
+    <p>{{ bday.name }} {{ bday.day }}-{{ bday.month }}</p>
+  <a href="{% url 'update_url' bday.pk %}">Edit</a>
+  <a href="{% url 'delete_url' bday.pk %}">X</a>
+  {% endfor %}
+<hr>
+
+<h3>Today is birthday:</h3>
+  {% for day in list_of_date %}
+    <p>{{ day.name }}</p>
   {% endfor %}
 
 {% endblock %}

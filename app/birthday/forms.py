@@ -5,4 +5,4 @@ from .models import BirthdayData
 class BirthdayDataForm(forms.ModelForm):
     class Meta:
         model = BirthdayData
-        fields = ('name', 'date')
+        fields = ('name', 'day', 'month', 'year')

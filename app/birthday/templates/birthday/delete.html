@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block content %}
+    <h1>Delete B-Day</h1>
+    <form action="" method="post">
+      {% csrf_token %}
+      <p>Are you sure you want to delete "{{ birthday.name }}" b-day?</p>
+<!--      <button type="submit">Confirm</button>-->
+        <input type="submit" value="Confirm">
+    </form>
+            <p>Back to
+            <a  href="{% url 'dashboard_url' pk=user.id %}">Dashboard</a>
+            </p>
+{% endblock %}
