@@ -6,9 +6,10 @@
   <h2>Hello {{ user.username }}</h2>
 
   {% for bday in birthdays %}
-    <p>{{ bday.name }} {{ bday.day }}-{{ bday.month }}</p>
+<p><a href="{% url 'detail_url' bday.pk %}">{{ bday.name }} </a>{{ bday.day }}-{{ bday.month }}
   <a href="{% url 'update_url' bday.pk %}">Edit</a>
   <a href="{% url 'delete_url' bday.pk %}">X</a>
+  </p>
   {% endfor %}
 <hr>
 

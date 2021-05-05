@@ -4,7 +4,9 @@ from django.urls import reverse
 
 from .models import BirthdayData
 from .forms import BirthdayDataForm
+from .permissions import CurrentUserPermissionsMixin
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from loguru import logger
 from .service.compire_date import run_compare
@@ -22,7 +24,7 @@ def redirect_to_user_page(request):
     return redirect(f'/user/dashboard/{request.user.id}')
 
 
-class Dashboard(ListView):
+class Dashboard(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = ListView
     template_name = 'birthday/dashboard.html'
     context_object_name = 'birthdays'
@@ -35,8 +37,11 @@ class Dashboard(ListView):
         context['list_of_date'] = run_compare(self.kwargs['pk'])
         return context
 
+    def test_func(self):
+        return self.request.user.id == self.kwargs['pk']
 
-class CreateBirthday(CreateView):
+
+class CreateBirthday(LoginRequiredMixin, CreateView):
     form_class = BirthdayDataForm
     template_name = 'birthday/create.html'
     success_message = "B-Day Successfully Created"
@@ -51,19 +56,19 @@ class CreateBirthday(CreateView):
         return reverse('dashboard_url', kwargs={'pk': self.kwargs['pk']})
 
 
-class DetailBirthday(DetailView):
+class DetailBirthday(CurrentUserPermissionsMixin, DetailView):
     model = BirthdayData
     template_name = 'birthday/detail.html'
 
 
-class UpdateBirthday(UpdateView):
+class UpdateBirthday(CurrentUserPermissionsMixin, UpdateView):
     model = BirthdayData
     template_name = 'birthday/update.html'
     fields = ['name', 'day', 'month', 'year']
     success_message = "Birthday data successfully updated!"
 
 
-class DeleteBirthday(DeleteView):
+class DeleteBirthday(CurrentUserPermissionsMixin, DeleteView):
     model = BirthdayData
     template_name = 'birthday/delete.html'
     success_message = "Deleted Successfully"
