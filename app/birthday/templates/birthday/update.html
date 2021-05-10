@@ -8,7 +8,12 @@
 {% block content %}
 <form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <p><b>Name</b></p>
+    <p>{{ form.name }}</p>
+    <p><b>Date</b></p>
+    <p>{{ form.birthday }}</p>
+    <p><b>Some text</b></p>
+    <p>{{ form.text }}</p>
     <button class="btn btn-outline-primary" type="submit">Update</button>
 </form>
 {% endblock %}

@@ -6,7 +6,7 @@
 
 
 {% block content %}
-    <p>{{ birthdaydata2.name }} - {{ birthdaydata2.day }} - {{ birthdaydata2.month }}</p>
+    <p>{{ birthdaydata.name }} - {{ birthdaydata.birthday }}</p>
             <p>Back to
             <a  href="{% url 'dashboard_url' pk=user.id %}">Dashboard</a>
             </p>

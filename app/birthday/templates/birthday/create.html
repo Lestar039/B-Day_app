@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
-{% block title %}
 
+{% block title %}
+    Create B-Day
 {% endblock %}
 
-
 {% block content %}
+    <h3>Create B-Day</h3>
 <form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <p><b>Name</b></p>
+    <p>{{ form.name }}</p>
+    <p><b>Date</b></p>
+    <p>{{ form.birthday }}</p>
+    <p><b>Some text</b></p>
+    <p>{{ form.text }}</p>
     <button class="btn btn-outline-primary" type="submit">Create</button>
 </form>
 {% endblock %}

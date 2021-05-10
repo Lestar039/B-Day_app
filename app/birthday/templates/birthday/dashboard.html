@@ -3,19 +3,24 @@
 
 {% block content %}
 
-  <h2>Hello {{ user.username }}</h2>
-
-  {% for bday in birthdays %}
-<p><a href="{% url 'detail_url' bday.pk %}">{{ bday.name }} </a>{{ bday.day }}-{{ bday.month }}
-  <a href="{% url 'update_url' bday.pk %}">Edit</a>
-  <a href="{% url 'delete_url' bday.pk %}">X</a>
-  </p>
-  {% endfor %}
+  <h3>Hello {{ user.username }}!</h3>
 <hr>
+
 
 <h3>Today is birthday:</h3>
   {% for day in list_of_date %}
-    <p>{{ day.name }}</p>
+    <p>{{ day.0 }} - {{ day.1 }} years old</p>
+  {% endfor %}
+<hr>
+
+<h3>All B-Days</h3>
+  {% for bday in birthdays %}
+<p>
+
+  <a href="{% url 'detail_url' bday.pk %}">{{ bday.name }} </a>
+  <a href="{% url 'update_url' bday.pk %}">Edit</a>
+  <a href="{% url 'delete_url' bday.pk %}">X</a>
+  </p>
   {% endfor %}
 
 {% endblock %}

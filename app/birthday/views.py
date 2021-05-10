@@ -30,7 +30,7 @@ class Dashboard(LoginRequiredMixin, UserPassesTestMixin, ListView):
     context_object_name = 'birthdays'
 
     def get_queryset(self):
-        return BirthdayData.objects.filter(user=self.kwargs['pk']).order_by('year', 'month', 'day')
+        return BirthdayData.objects.filter(user=self.kwargs['pk'])
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -64,7 +64,7 @@ class DetailBirthday(CurrentUserPermissionsMixin, DetailView):
 class UpdateBirthday(CurrentUserPermissionsMixin, UpdateView):
     model = BirthdayData
     template_name = 'birthday/update.html'
-    fields = ['name', 'day', 'month', 'year']
+    fields = ['name', 'birthday', 'text']
     success_message = "Birthday data successfully updated!"
 
 
@@ -74,4 +74,4 @@ class DeleteBirthday(CurrentUserPermissionsMixin, DeleteView):
     success_message = "Deleted Successfully"
 
     def get_success_url(self):
-        return reverse('dashboard_url', kwargs={'pk': self.kwargs['pk']})
+        return reverse('dashboard_url', kwargs={'pk': self.request.user.pk})
